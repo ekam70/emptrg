@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>Training Module - Home</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Employee Training Home</h1>
+  <p>Welcome to Training Portal, a website developed by <em>Eka, the great!</em>!</p>
+  <h2>Dynamic content</h2>
+  <p>The portal has the following record counts:</p>
+  <ul>
+    <li><strong>Departments:</strong> {{ num_departments }}</li>
+    <li><strong>Programs:</strong> {{ num_programs }}</li>
+    <li><strong>Employees:</strong> {{ num_employees }}</li>
+    <li><strong>Regular Employees:</strong> {{ num_regular_employees }}</li>
+  </ul>
+  <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+{% endblock %}

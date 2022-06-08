@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<script src="/static/js/vue.global.js"></script>
+<body>
+  <div id="test-select">
+    <label for="countryList">Your Country</label>
+    <select @change="selectCountry" class="form-control" v-model="country" id="countryList">
+       <option :value="country.code" v-for="(country) in countryList" :key="country.code">{{country.name}}</option>
+    </select>
+    <br>
+    <label for="countryName">Selected Country</label>
+    <select class="form-control" v-model="selectedcountry" id="countryName">
+       <option :value="selectedcountry.code" v-for="(selectedcountry) in selectedcountryList" :key="selectedcountry.code">{{selectedcountry.name}}</option>
+    </select>
+
+    <button @click="popcountryname()">Pop country name</button>
+
+
+  </div>
+
+<script>
+
+
+const app = Vue.createApp({
+  data() {
+    return {
+      country: {},
+      selectedcountry: {},
+      countryList: [
+        {
+          "name": "Afghanistan",
+          "code": "AF"},
+        {
+          "name": "Åland Islands",
+          "code": "AX"},
+        {
+          "name": "Albania",
+          "code": "AL"},
+        {
+          "name": "Algeria",
+          "code": "DZ"},
+        {
+          "name": "American Samoa",
+          "code": "AS"}
+      ],
+      selectedcountryList: [],
+    }
+  },
+  methods: {
+    popcountryname: function() {
+      alert(this.country);
+    },
+    selectCountry: function(){
+      this.selectedcountryList = this.countryList.filter(entry => entry.code == this.country)
+    }
+  }
+})
+
+app.mount('#test-select')
+
+</script>
+
+</body>
+</html>

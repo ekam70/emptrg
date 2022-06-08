@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<script src="/static/js/vue.global.js"></script>
+<body>
+  <div id="emp-prog-select">
+    <label for="employeeList">Select the employee</label>
+    <select @change="filterProgramList" class="form-control" v-model="selectedEmployee" id="employeeList">
+       <option :value="employee.psnumber" v-for="(employee) in employeeList" :key="employee.psnumber">{{employee.fullname}}</option>
+    </select>
+    <br>
+    <label for="availableProgramList">Avalibale Programs</label>
+    <select class="form-control" v-model="selectedProgram" id="availableProgramList">
+       <option :value="program.code" v-for="(program) in availableProgramList" :key="program.code">{{program.description}}</option>
+    </select>
+
+    <button @click="popselection()">Pop selection</button>
+
+    <table v-bind:restEmpList = "restEmpList">
+      <tr>
+        <th v-for = "fldname in restEmpFields">{{fldname}}</th>
+      </tr>
+      <tr v-for = "emp in restEmpList" :key = "emp.psnumber">
+        <td v-for = "fldvalue in emp">{{ fldvalue }} </td>
+      </tr>
+   </table>
+  <h3>Employee List</h3>
+  <pre>
+    {{employeeList}}
+  </pre>
+
+  </div>
+
+<script>
+
+
+const app = Vue.createApp({
+  created() {
+    this.populate()
+  },
+  data() {
+    return {
+      employeeList: [],
+      programList: [],
+      selectedEmployee: {},
+      availableProgramList: [],
+      selectedProgram: {},
+      restEmpList: [],
+      restEmpFields:[],
+    }
+  },
+  methods: {
+    filterProgramList: function(){
+      e1 = this.employeeList.find(entry => entry.psnumber == this.selectedEmployee);
+      this.availableProgramList = this.programList.filter(entry => (entry.minimumeligibility.code <= e1.cadre.code && entry.maximumeligibility.code >= e1.cadre.code));
+    },
+    populate: function(){
+      fetch("/training/emplistjson")
+        .then(response => response.json())
+        .then(data => (this.employeeList = data));
+
+      fetch("/training/proglistjson")
+        .then(response => response.json())
+        .then(data => (this.programList = data));
+
+      fetch("/training/restapi/emplist")
+        .then(response => response.json())
+        .then(data => {
+          this.restEmpList = data;
+          this.restEmpFields = Object.keys(data[0])
+        });
+    },
+    popselection: function() {
+      alert(this.selectedEmployee);
+      alert(this.selectedProgram);
+    }
+  }
+})
+
+app.mount('#emp-prog-select')
+
+</script>
+
+</body>
+</html>

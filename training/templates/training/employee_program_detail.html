@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>Training Module - Employee / Program ({{employee.initial}} / {{program.code}})</title>
+{% endblock %}
+
+
+{% block content %}
+  <h1>Name: {{ employee.lastname }}, {{ employee.firstname }}</h1>
+  <h2>Program: {{program.description}}</h2>
+  
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Details</h4>
+    <hr>
+    {% for entry in detail %}
+
+      <p>{{forloop.counter }})</p>
+      <p>{{ entry.nominationdate }}</p>
+      <p>{{ entry.whetherattended }}</p>
+      <p>{{ entry.dateattended }}</p>
+
+    {% endfor %}
+  </div>
+{% endblock %}

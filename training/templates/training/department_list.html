@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>Training Module - Department List</title>
+{% endblock %}
+
+
+{% block content %}
+  <h1>Department List</h1>
+  {% if department_list %}
+  <ul>
+    {% for department in department_list %}
+      <li>
+        <a href="{{ department.get_absolute_url }}">{{ department.name }}</a> ({{ department.code }})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no departments.</p>
+  {% endif %}
+{% endblock %}

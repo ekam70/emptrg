@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>Training Module - Employee ({{employee.initial}})</title>
+{% endblock %}
+
+
+{% block content %}
+  <h1>Name: {{ employee.lastname }}, {{ employee.firstname }}</h1>
+
+  <p><strong>Cadre:</strong> {{ employee.cadre }}</p>
+  <p><strong>Department:</strong> <a href="{{ employee.department.get_absolute_url }}">{{ employee.department }}</a></p>
+  <p><strong>Status:</strong> {{ employee.status }}</p>
+  <p><strong>Superior:</strong> {{ employee.superior }}</p>
+  
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Programs</h4>
+    <hr>
+    {% for entry in employee.detail_set.all %}
+
+      <p>{{forloop.counter }}) {{ entry.program }}</p>
+
+    {% endfor %}
+  </div>
+{% endblock %}

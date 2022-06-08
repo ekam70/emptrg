@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>Training Module - Employee List</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Employee List</h1>
+  {% if employee_list %}
+  <ul>
+    {% for employee in employee_list %}
+      <li>
+        <a href="{{ employee.get_absolute_url }}">{{ employee.lastname }}, {{ employee.firstname }}</a> ({{employee.department}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no employees.</p>
+  {% endif %}
+{% endblock %}

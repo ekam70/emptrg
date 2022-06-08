@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>Training Module - Employee / Program List</title>
+{% endblock %}
+
+
+{% block content %}
+
+<form action="" method="post">
+  {% csrf_token %}
+  <table>
+  {{ form }}
+  </table>
+  <input type="submit" value="Submit">
+</form>
+
+
+  <h1>List of employees</h1>
+
+  {% for employee in employeelist %}
+
+    <p>{{forloop.counter }}) {{ employee }}</p>
+
+  {% endfor %}
+
+  <h2>List of programs</h2>
+
+  {% for program in programlist %}
+
+    <p>{{forloop.counter }}) {{ program}}</p>
+
+  {% endfor %}
+
+{% endblock %}
